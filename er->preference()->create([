@@ -1,0 +1,18 @@
+[90m= [39m[34;4mApp\Models\User[39;24m {#6331
+    [34mid[39m: [35m1[39m,
+    [34mname[39m: "[32mMethum Menthusa Thimbiripola[39m",
+    [34memail[39m: "[32mE275681@esoft.academy[39m",
+    [34memail_verified_at[39m: [36mnull[39m,
+    #[33mpassword[39m: "[32m$2y$12$DBTK.caHCp9dMY6rsb0oweJZejCnapkv7yaGRwOfQm/4oFmtKJKEi[39m",
+    #[33mremember_token[39m: [36mnull[39m,
+    [34mcreated_at[39m: "[32m2025-08-02 16:43:01[39m",
+    [34mupdated_at[39m: "[32m2025-08-02 16:43:01[39m",
+    [34mgithub_id[39m: "[32m156792735[39m",
+    [34mgithub_username[39m: "[32mThe-OG-Methum[39m",
+    [34mavatar[39m: "[32mhttps://avatars.githubusercontent.com/u/156792735?v=4[39m",
+    [34mgithub_token[39m: [36mnull[39m,
+    [34mgithub_refresh_token[39m: [36mnull[39m,
+    [34monboarded[39m: [36mfalse[39m,
+    [34monboarding_completed_at[39m: [36mnull[39m,
+  }
+
