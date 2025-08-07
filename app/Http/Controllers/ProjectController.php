@@ -18,15 +18,14 @@ class ProjectController extends Controller
    public function index()
 {
 
-    $response = Http::get('https://api.github.com/search/repositories?q=is:public&sort=stars&order=desc&per_page=10');
-
+    $projects = Project::all();
 
     
 
    
     return response()->json([
         'success'=>true,
-        'projects'=>$response->json()
+        'projects'=>$projects
     ]);
 
      // Github Api
@@ -81,7 +80,7 @@ class ProjectController extends Controller
         ], 404);
     }
 
-    $preference = $user->preferences; 
+    $preference = $user->preferences;
 
     if (!$preference) {
         return response()->json([
@@ -93,28 +92,23 @@ class ProjectController extends Controller
     $languages = $preference->languages;
     $interests = $preference->interests;
 
-    $languageNames = $languages->pluck('name')->toArray();
-    $interestsNames = $interests->pluck('name')->toArray();
+    $languageName = strtolower(str_replace(' ', '-', $languages->pluck('name')->first() ?? ''));
+    $interestName = strtolower(str_replace(' ', '-', $interests->pluck('name')->first() ?? ''));
 
-    $languageQurey = collect($languageNames)->map(fn($lang) => 'language:$lang')->implode('+');
+    // Build the GitHub query string
+    $finalQuery = "language:$languageName+topic:$interestName+stars:>10";
 
-    $interestQuery = collect($interestsNames)->map(fn($tag) => 'topic:$tag')->implode('+');
+    \Log::info("GitHub search query: " . $finalQuery);
 
-    $finalQuery = $languageQurey . '+' . $interestQuery . '+is:public'. '+stars:>10';
+    $response = Http::get('https://api.github.com/search/repositories', [
+        'q' => $finalQuery,
+    ]);
 
-    $query = urlencode($finalQuery);
-    
-    $response = Http::get('https://api.github.com/search/repositories?q=$query');
-
-    
     return response()->json([
         'success' => true,
-        'projects'=>$response->json()
-    ], 200);
-
-    
-
-
+        'projects' => $response->json()
+    ]);
 }
+
 
 }
